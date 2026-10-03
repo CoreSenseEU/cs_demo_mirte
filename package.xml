@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="3">
+
+  <name>cs_demo_mirte</name>
+  <version>0.1.0</version>
+
+  <description>
+    CoreSense MIRTE demonstrator: room estimation and room navigation.
+  </description>
+
+  <maintainer email="e.aguado.glez@gmail.com">Esther Aguado</maintainer>
+
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>std_msgs</depend>
+  <depend>launch_ros</depend>
+  <depend>ament_index_python</depend>
+
+  <exec_depend>python3</exec_depend>
+  <exec_depend>python3-rdflib</exec_depend>
+  <exec_depend>easynav_support_py</exec_depend>
+  <exec_depend>easynav_interfaces</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+
+</package>

@@ -1,0 +1,465 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sysml: <https://coresense.eu/mirte#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sysml:acceptanceCriteria a owl:DatatypeProperty ;
+    rdfs:domain sysml:Capability ;
+    rdfs:range xsd:string .
+
+sysml:bedroom a sysml:Bedroom ;
+    rdfs:label "bedroom" ;
+    sysml:Contains sysml:bedroom__bed ;
+    sysml:navigationTheta "0.0"^^xsd:string ;
+    sysml:navigationX "-6.20"^^xsd:string ;
+    sysml:navigationY "-0.50"^^xsd:string .
+
+sysml:conditions a owl:DatatypeProperty ;
+    rdfs:domain sysml:Capability,
+        sysml:Context ;
+    rdfs:range xsd:string .
+
+sysml:desiredEffects a owl:DatatypeProperty ;
+    rdfs:domain sysml:Mission ;
+    rdfs:range xsd:string .
+
+sysml:diningRoom a sysml:DiningRoom ;
+    rdfs:label "diningRoom" ;
+    sysml:Contains sysml:diningRoom__chair,
+        sysml:diningRoom__diningTable ;
+    sysml:navigationTheta "0.0"^^xsd:string ;
+    sysml:navigationX "1.20"^^xsd:string ;
+    sysml:navigationY "3.60"^^xsd:string .
+
+sysml:kitchen a sysml:Kitchen ;
+    rdfs:label "kitchen" ;
+    sysml:Contains sysml:kitchen__fridge,
+        sysml:kitchen__oven ;
+    sysml:navigationTheta "0.0"^^xsd:string ;
+    sysml:navigationX "7.20"^^xsd:string ;
+    sysml:navigationY "-1.50"^^xsd:string .
+
+sysml:livingRoom a sysml:LivingRoom ;
+    rdfs:label "livingRoom" ;
+    sysml:Contains sysml:livingRoom__cup,
+        sysml:livingRoom__sofa,
+        sysml:livingRoom__tv ;
+    sysml:navigationTheta "0.0"^^xsd:string ;
+    sysml:navigationX "1.20"^^xsd:string ;
+    sysml:navigationY "-2.90"^^xsd:string .
+
+sysml:messageTypes a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sysml:mirte.reachRoom__acceptanceThreshold a owl:DatatypeProperty ;
+    rdfs:domain sysml:Capability ;
+    rdfs:range xsd:double .
+
+sysml:mirte.reachRoom__realizes a owl:ObjectProperty ;
+    rdfs:domain sysml:Capability .
+
+sysml:mirte.reachRoom__system a owl:ObjectProperty ;
+    rdfs:domain sysml:Capability .
+
+sysml:mirteHouse a sysml:MIRTEHouse ;
+    rdfs:label "mirteHouse" .
+
+sysml:mirteStructure a sysml:CognitiveStructure ;
+    rdfs:label "mirteStructure" ;
+    sysml:mirteStructure__modules sysml:mirteSystem.perS.objectDetector,
+        sysml:mirteSystem.runS.mirteModule,
+        sysml:mirteSystem.undS.roomEstimator .
+
+sysml:mirteStructure__modules a owl:ObjectProperty ;
+    rdfs:domain sysml:CognitiveStructure .
+
+sysml:mirteSystem a sysml:CSSystem ;
+    rdfs:label "mirteSystem" .
+
+sysml:mirteSystem.govS__visitRooms a sysml:CognitiveProcess ;
+    rdfs:label "visitRooms" .
+
+sysml:mirteSystem.perS.core__engine a owl:ObjectProperty .
+
+sysml:mirteSystem.perS.core__model a owl:ObjectProperty .
+
+sysml:mirteSystem.perS__afferent rdfs:label "afferent" ;
+    sysml:subscribedTopics "/rgbd_camera/camera_info"^^xsd:string,
+        "/rgbd_camera/depth_image"^^xsd:string,
+        "/rgbd_camera/image"^^xsd:string .
+
+sysml:mirteSystem.perS__core rdfs:label "core" ;
+    sysml:mirteSystem.perS.core__engine sysml:objectDetectionEngine ;
+    sysml:mirteSystem.perS.core__model sysml:objectDetectionModel .
+
+sysml:mirteSystem.perS__efferent rdfs:label "efferent" ;
+    sysml:messageTypes "yolo_msgs/msg/DetectionArray"^^xsd:string ;
+    sysml:publishedTopics "/yolo/detections_3d"^^xsd:string .
+
+sysml:mirteSystem.perS__objectDetector a sysml:ROS2CognitiveModule ;
+    rdfs:label "objectDetector" .
+
+sysml:mirteSystem.runS.core__engine a owl:ObjectProperty .
+
+sysml:mirteSystem.runS.core__model a owl:ObjectProperty .
+
+sysml:mirteSystem.runS__afferent rdfs:label "afferent" ;
+    sysml:messageTypes "cs_interfaces/msg/ActionSpecification"^^xsd:string ;
+    sysml:subscribedTopics "~/action_specification"^^xsd:string .
+
+sysml:mirteSystem.runS__core rdfs:label "core" ;
+    sysml:mirteSystem.runS.core__engine sysml:motionEngine ;
+    sysml:mirteSystem.runS.core__model sysml:motionPolicyModel .
+
+sysml:mirteSystem.runS__efferent rdfs:label "efferent" ;
+    sysml:messageTypes "cs_interfaces/msg/ExecutionStatusReport"^^xsd:string,
+        "geometry_msgs/msg/Twist"^^xsd:string ;
+    sysml:publishedTopics "/cmd_vel"^^xsd:string,
+        "~/execution_status"^^xsd:string .
+
+sysml:mirteSystem.runS__mirteModule a sysml:ROS2CognitiveModule ;
+    rdfs:label "mirteModule" .
+
+sysml:mirteSystem.undS.core__beliefDecay a owl:DatatypeProperty ;
+    rdfs:range xsd:double .
+
+sysml:mirteSystem.undS.core__beliefIncrement a owl:DatatypeProperty ;
+    rdfs:range xsd:double .
+
+sysml:mirteSystem.undS.core__engine a owl:ObjectProperty .
+
+sysml:mirteSystem.undS.core__model a owl:ObjectProperty .
+
+sysml:mirteSystem.undS__afferent rdfs:label "afferent" ;
+    sysml:messageTypes "cs_interfaces/msg/Context"^^xsd:string ;
+    sysml:subscribedTopics "/context"^^xsd:string .
+
+sysml:mirteSystem.undS__core rdfs:label "core" ;
+    sysml:mirteSystem.undS.core__beliefDecay 8e-01 ;
+    sysml:mirteSystem.undS.core__beliefIncrement 1e+00 ;
+    sysml:mirteSystem.undS.core__engine sysml:roomEstimationEngine ;
+    sysml:mirteSystem.undS.core__model sysml:roomClassificationModel .
+
+sysml:mirteSystem.undS__efferent rdfs:label "efferent" ;
+    sysml:messageTypes "cs_interfaces/msg/AttributeObserved"^^xsd:string ;
+    sysml:publishedTopics "/features/attributes"^^xsd:string .
+
+sysml:mirteSystem.undS__roomEstimator a sysml:ROS2CognitiveModule ;
+    rdfs:label "roomEstimator" .
+
+sysml:mirteSystem__actS rdfs:label "actS" .
+
+sysml:mirteSystem__govS rdfs:label "govS" .
+
+sysml:mirteSystem__metS rdfs:label "metS" .
+
+sysml:mirteSystem__perS rdfs:label "perS" .
+
+sysml:mirteSystem__runS rdfs:label "runS" .
+
+sysml:mirteSystem__undS rdfs:label "undS" .
+
+sysml:mirte__camera a sysml:Sensor ;
+    rdfs:label "camera" .
+
+sysml:mirte__imu a sysml:Sensor ;
+    rdfs:label "imu" .
+
+sysml:mirte__lidar a sysml:Sensor ;
+    rdfs:label "lidar" .
+
+sysml:mirte__location a sysml:Room ;
+    rdfs:label "location" .
+
+sysml:mirte__mecanumBase a sysml:Actuator ;
+    rdfs:label "mecanumBase" .
+
+sysml:mirte__odometry a sysml:Sensor ;
+    rdfs:label "odometry" .
+
+sysml:mirte__pose a owl:DatatypeProperty ;
+    rdfs:domain sysml:System ;
+    rdfs:range xsd:string .
+
+sysml:mirte__reachRoom a sysml:Capability ;
+    rdfs:label "reachRoom" ;
+    sysml:acceptanceCriteria "the belief of being in a room of the requested kind reaches acceptanceThreshold"^^xsd:string ;
+    sysml:conditions "a room of the requested kind exists"^^xsd:string,
+        "the room contains the objects its classification rule requires"^^xsd:string,
+        "within the camera's detection range"^^xsd:string ;
+    sysml:mirte.reachRoom__acceptanceThreshold 1.5e+00 ;
+    sysml:mirte.reachRoom__realizes sysml:reachRoomFunction ;
+    sysml:mirte.reachRoom__system sysml:mirte .
+
+sysml:mirte__reachRoomFunction a sysml:Function ;
+    rdfs:label "reachRoomFunction" .
+
+sysml:mirte__ultrasonicRangers a sysml:Sensor ;
+    rdfs:label "ultrasonicRangers" .
+
+sysml:mirte__velocity a owl:DatatypeProperty ;
+    rdfs:domain sysml:System ;
+    rdfs:range xsd:string .
+
+sysml:navigationTheta a owl:DatatypeProperty ;
+    rdfs:domain sysml:Bedroom,
+        sysml:DiningRoom,
+        sysml:Kitchen,
+        sysml:LivingRoom,
+        sysml:Room ;
+    rdfs:range xsd:double,
+        xsd:string .
+
+sysml:navigationX a owl:DatatypeProperty ;
+    rdfs:domain sysml:Bedroom,
+        sysml:DiningRoom,
+        sysml:Kitchen,
+        sysml:LivingRoom,
+        sysml:Room ;
+    rdfs:range xsd:double,
+        xsd:string .
+
+sysml:navigationY a owl:DatatypeProperty ;
+    rdfs:domain sysml:Bedroom,
+        sysml:DiningRoom,
+        sysml:Kitchen,
+        sysml:LivingRoom,
+        sysml:Room ;
+    rdfs:range xsd:double,
+        xsd:string .
+
+sysml:object rdfs:label "object" .
+
+sysml:objectsContained a sysml:PhysicalObject ;
+    rdfs:label "objectsContained" .
+
+sysml:ontology a owl:Ontology ;
+    rdfs:label "OWL representation of SysML package MIRTE_ontology" ;
+    rdfs:comment "SysML constraint inBedroom: mirte.location istype Bedroom",
+        "SysML constraint inKitchen: mirte.location istype Kitchen",
+        "SysML import: CSArchitecture::*",
+        "SysML import: CSBase::*",
+        "SysML import: CSCore::*",
+        "SysML import: CSRuntime::RuntimeArchitecture::*",
+        "SysML import: CSStructure::*",
+        "SysML import: MIRTE_ontology::*",
+        "SysML import: MIRTE_selfModel::*",
+        "SysML import: ScalarValues::*",
+        "SysML source: /home/esther/ros2_ws/src/cs_demo_mirte/model/MIRTE_architecture.sysml",
+        "SysML source: /home/esther/ros2_ws/src/cs_demo_mirte/model/MIRTE_mission.sysml",
+        "SysML source: /home/esther/ros2_ws/src/cs_demo_mirte/model/MIRTE_ontology.sysml",
+        "SysML source: /home/esther/ros2_ws/src/cs_demo_mirte/model/MIRTE_selfModel.sysml" .
+
+sysml:publishedTopics a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sysml:reachBedroom a sysml:Goal ;
+    rdfs:label "reachBedroom" ;
+    sysml:reachBedroom__extendedSystem sysml:robotInHouse .
+
+sysml:reachBedroom__extendedSystem a owl:ObjectProperty ;
+    rdfs:domain sysml:Goal .
+
+sysml:reachKitchen a sysml:Goal ;
+    rdfs:label "reachKitchen" ;
+    sysml:reachKitchen__extendedSystem sysml:robotInHouse .
+
+sysml:reachKitchen__extendedSystem a owl:ObjectProperty ;
+    rdfs:domain sysml:Goal .
+
+sysml:robotInHouse.environment__entities a owl:ObjectProperty .
+
+sysml:robotInHouse.environment__system a owl:ObjectProperty .
+
+sysml:robotInHouse__environment rdfs:label "environment" ;
+    sysml:robotInHouse.environment__entities sysml:environmentEntities ;
+    sysml:robotInHouse.environment__system sysml:mirte .
+
+sysml:robotInHouse__environmentEntities a sysml:Room ;
+    rdfs:label "environmentEntities" .
+
+sysml:robotInHouse__targetSystem rdfs:label "targetSystem" .
+
+sysml:room rdfs:label "room" .
+
+sysml:subscribedTopics a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sysml:tour a sysml:Mission ;
+    rdfs:label "tour" ;
+    sysml:desiredEffects "reach_bedroom"^^xsd:string,
+        "reach_kitchen"^^xsd:string ;
+    sysml:tour__context sysml:tourContext .
+
+sysml:tourContext__extendedSystem a owl:ObjectProperty ;
+    rdfs:domain sysml:Context .
+
+sysml:tour__context a owl:ObjectProperty ;
+    rdfs:domain sysml:Mission .
+
+sysml:MIRTEHouse a owl:Class ;
+    rdfs:label "MIRTEHouse" .
+
+sysml:Oven a owl:Class ;
+    rdfs:label "Oven" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:Sofa a owl:Class ;
+    rdfs:label "Sofa" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:bedroom__bed a sysml:Bed ;
+    rdfs:label "bed" .
+
+sysml:diningRoom__chair a sysml:Chair ;
+    rdfs:label "chair" .
+
+sysml:diningRoom__diningTable a sysml:DiningTable ;
+    rdfs:label "diningTable" .
+
+sysml:kitchen__fridge a sysml:Fridge ;
+    rdfs:label "fridge" .
+
+sysml:kitchen__oven a sysml:Oven ;
+    rdfs:label "oven" .
+
+sysml:livingRoom__cup a sysml:Cup ;
+    rdfs:label "cup" .
+
+sysml:livingRoom__sofa a sysml:Sofa ;
+    rdfs:label "sofa" .
+
+sysml:livingRoom__tv a sysml:TV ;
+    rdfs:label "tv" .
+
+sysml:motionEngine a sysml:Engine ;
+    rdfs:label "motionEngine" .
+
+sysml:motionPolicyModel a sysml:Model ;
+    rdfs:label "motionPolicyModel" .
+
+sysml:objectDetectionEngine a sysml:Engine ;
+    rdfs:label "objectDetectionEngine" .
+
+sysml:objectDetectionModel a sysml:Model ;
+    rdfs:label "objectDetectionModel" .
+
+sysml:roomClassificationModel a sysml:Model ;
+    rdfs:label "roomClassificationModel" .
+
+sysml:roomEstimationEngine a sysml:Engine ;
+    rdfs:label "roomEstimationEngine" .
+
+sysml:tourContext a sysml:Context ;
+    rdfs:label "tourContext" ;
+    sysml:conditions "the kind of the room the robot is in is unknown until inferred"^^xsd:string ;
+    sysml:tourContext__extendedSystem sysml:robotInHouse .
+
+sysml:Bed a owl:Class ;
+    rdfs:label "Bed" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:Chair a owl:Class ;
+    rdfs:label "Chair" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:Cup a owl:Class ;
+    rdfs:label "Cup" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:DiningTable a owl:Class ;
+    rdfs:label "DiningTable" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:Fridge a owl:Class ;
+    rdfs:label "Fridge" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:TV a owl:Class ;
+    rdfs:label "TV" ;
+    rdfs:subClassOf sysml:PhysicalObject .
+
+sysml:mirte a sysml:Agent,
+        sysml:System ;
+    rdfs:label "mirte" .
+
+sysml:robotInHouse a sysml:ExtendedSystem ;
+    rdfs:label "robotInHouse" .
+
+sysml:Bedroom a owl:Class ;
+    rdfs:label "Bedroom" ;
+    rdfs:comment """SysML constraint classification: objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype Bed
+            }""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:Bed ],
+        sysml:Room .
+
+sysml:DiningRoom a owl:Class ;
+    rdfs:label "DiningRoom" ;
+    rdfs:comment """SysML constraint classification: objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype DiningTable
+            } and
+            objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype Chair
+            }""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:Chair ],
+        [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:DiningTable ],
+        sysml:Room .
+
+sysml:Kitchen a owl:Class ;
+    rdfs:label "Kitchen" ;
+    rdfs:comment """SysML constraint classification: objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype Fridge
+            }""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:Fridge ],
+        sysml:Room .
+
+sysml:LivingRoom a owl:Class ;
+    rdfs:label "LivingRoom" ;
+    rdfs:comment """SysML constraint classification: objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype Cup
+            } and
+            objectsContained->ControlFunctions::exists {
+                in o : PhysicalObject;
+                o istype TV
+            }""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:Cup ],
+        [ a owl:Restriction ;
+            owl:onProperty sysml:Contains ;
+            owl:someValuesFrom sysml:TV ],
+        sysml:Room .
+
+sysml:Contains a owl:ObjectProperty ;
+    rdfs:label "Contains" ;
+    rdfs:subPropertyOf sysml:BinaryRelation .
+
+sysml:PhysicalObject a owl:Class ;
+    rdfs:label "PhysicalObject" ;
+    rdfs:subClassOf sysml:Entity .
+
+sysml:Room a owl:Class ;
+    rdfs:label "Room" ;
+    rdfs:comment """SysML constraint oneRelationPerObject: doc 
+            SequenceFunctions::size(contains)
+                == SequenceFunctions::size(objectsContained)""",
+        """SysML constraint relationsSource: doc 
+            contains->ControlFunctions::forAll {
+                in c : Contains; c.room == self
+            }""" ;
+    rdfs:subClassOf sysml:Entity .
+

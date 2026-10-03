@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# VS Code editor files
+.vscode/
+*.code-workspace
+
+# Local/system artifacts
+*.log
+.DS_Store
+
+# pytest
+.pytest_cache/
+
+# coverage
+.coverage
+htmlcov/
