@@ -32,14 +32,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Room estimation
-    room_estimator_node = Node(
-        package='cs_demo_mirte',
-        executable='room_estimator_node',
-        name='room_estimator',
-        output='screen',
-    )
-
     # MIRTE execution module.
     # The OWL ontology is located in sysml2owl.
     mirte_module_node = Node(
@@ -59,6 +51,5 @@ def generate_launch_description():
     return LaunchDescription([
         mirte_house,
         action_node,
-        room_estimator_node,
         mirte_module_node,
     ])
